@@ -7,18 +7,18 @@
         <a href="/messageBox"><h3>You are having new friend request!</h3></a>
     @endif
     @foreach ($listUsers as $user)
-        @if ($user['status']!=='self')
             <div>
-                    <span>{{ $user['name'] }}</span>
+                    <span>{{ $user->name }}</span>
                     <span>
-                        @if ( $user['status']=='send_request')
-                        <a href='/storeRequest/{{ $user['id'] }}'>Send Request for Friendship</a>  
+                        @if ( $user->status=='send_request')
+                        <a href='/storeRequest/{{ $user->id }}'>Send Request for Friendship</a>  
                         @else
-                            {{ $user['status'] }}
+                            {{ $user->status}}
                     @endif 
                 </span>            
             </div>
-        @endif
     @endforeach
 
+
+    {{ $listUsers->links() }}
 @endsection

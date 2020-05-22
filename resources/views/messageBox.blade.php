@@ -14,6 +14,8 @@
         </div>
     @endforeach
 @endif
-   
+ 
+<div>{{ $list->links() }}</div>
+
 
 @endsection

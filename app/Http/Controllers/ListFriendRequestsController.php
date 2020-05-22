@@ -14,7 +14,9 @@ class ListFriendRequestsController extends Controller
         $list=Friend_requests::where('receiver',auth()->user()->id)
         ->where('active',true)
         ->join('users','users.id','=','friend_requests.sender')
-        ->get();
+        ->paginate(5)
+        ->onEachSide(2);
+        
         return view('messageBox',['list'=>$list]);
     }
 

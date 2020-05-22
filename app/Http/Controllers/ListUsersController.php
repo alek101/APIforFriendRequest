@@ -10,15 +10,16 @@ class ListUsersController extends Controller
 {
     public function index()
     {
-        $listUsers=User::select('id','name')->get();
-        $newList=[];
+        $listUsers=User::select('id','name')
+        ->paginate(5)
+        ->onEachSide(2);
         foreach($listUsers as $user)
         {
-            $temp=['id'=>$user->id, 'name'=>$user->name, 'status'=>HelperResource::checkStatus($user->id)];
-            array_push($newList,$temp);
+            $status=HelperResource::checkStatus($user->id);
+            $user->status=$status;
         }
         $haveMesssage=HelperResource::checkIfIhaveMessages();
 
-        return view('list',['listUsers'=>$newList,'haveMessage'=>$haveMesssage]);
+        return view('list',['listUsers'=>$listUsers,'haveMessage'=>$haveMesssage]);
     }
 }
